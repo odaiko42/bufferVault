@@ -15,7 +15,7 @@ BufferVault is a lightweight and secure system tool for Windows 10/11 that autom
 - **Pure Rust** -- zero external dependencies, only Win32 APIs
 - **AES-256-GCM encryption** -- the entire history is encrypted at rest
 - **DPAPI-protected master key** -- secured by the Windows credential store
-- **Lightweight** -- ~133 KB binary (UPX-compressed), < 15 MB memory footprint
+- **Lightweight** -- ~134 KB binary (UPX-compressed), < 15 MB memory footprint
 
 ---
 
@@ -33,6 +33,7 @@ BufferVault is a lightweight and secure system tool for Windows 10/11 that autom
 | DPI-aware | High-resolution display support (100% to 200%) |
 | Splash screen | Startup animation with fade-out |
 | History manager | Dedicated window to view, edit and batch-delete entries |
+| Launch at startup | Optional auto-start with Windows via registry (toggle from tray menu) |
 
 ---
 
@@ -81,6 +82,7 @@ Data is stored in `%APPDATA%\BufferVault\`:
 | Show/Hide | Open or close the popup |
 | Manage history... | Open the full history manager |
 | Clear history | Delete all non-pinned entries |
+| Launch at startup | Toggle auto-start with Windows (checkmark when enabled) |
 | About... | Application information |
 | Quit | Save and close BufferVault |
 
