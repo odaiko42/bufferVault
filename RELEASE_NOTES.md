@@ -1,30 +1,31 @@
 # BufferVault - Release Notes
 
-## [0.1.2] - 2026-02-07
+## [0.1.3] - 2026-02-07
 
 ### Ameliore
-- **Gestion d'erreur** : `autostart.rs` reecrit avec retour `BvResult` au lieu de `bool` pour toute interaction registre
-- **Detection theme systeme** : `is_system_dark_mode()` lit la cle de registre `AppsUseLightTheme` (HKCU) au lieu d'un stub `false`
-- **Testabilite** : 145 tests unitaires (x2 vs v0.1.1) avec couverture significativement elargie
-- **Documentation** : JSDoc/Safety amelioree sur `tray.rs`, `win32.rs`, `splash.rs`, `renderer.rs`
+- **ui/manager.rs** : refactoring complet -- extraction de `draw_checkbox()`, `draw_edit_mode()`, `draw_normal_entry()` depuis le monolithique `draw_manager_entry()`. Ajout de 15+ constantes nommees, `BvResult` sur `create_window()`, `is_editing()` accesseur, `#[must_use]` / `#[inline]` sur les methodes pures
+- **ui/popup.rs** : nettoyage du code mort dans `paint()`, ajout de `POPUP_WIDTH_BASE` / `SCROLL_STEP`, retour `BvResult` sur `create_window()`
+- **ui/sidebar.rs** : ajout de `scroll()`, constantes `FALLBACK_VISIBLE_COUNT` / `SCROLL_STEP`, retour `BvResult` sur `create_window()`
+- **ui/permanent.rs** : ajout de `scroll()`, 5 constantes nommees, retour `BvResult` sur `create_window()`
+- **ui/renderer.rs** : suppression du parametre `_dpi` inutilise dans `create_font()`, ajout de `fade_step_count()` utilitaire, constantes `PIN_INDICATOR_WIDTH` / `PREVIEW_MAX_CHARS` / `FONT_FACE`
+- **ui/splash.rs** : extraction de 15+ constantes depuis les magic numbers (dimensions, couleurs, polices), `draw_border()` helper, `alpha()` accesseur
+- **ui/mod.rs** : facade re-exports pour tous les types publics UI, fonctions de validation `validated_visible_count()` / `validated_selection()`
+- **Gestion d'erreur** : les 4 fenetres (popup, sidebar, permanent, manager) retournent `BvResult` sur `create_window()` avec gestion dans `app.rs`
+- **Documentation** : commentaires SAFETY detailles sur tous les blocs unsafe GDI, doc-comments JSDoc complets sur toutes les methodes publiques
+- **573 tests unitaires** (vs 484 en v0.1.2), 0 warnings
 
-### Nouveaux tests (68 nouveaux tests)
-- `error.rs` : 10 tests (Display de chaque variante, From<io::Error>, Debug, BvResult ok/err)
-- `system/win32.rs` : 14 tests (to/from_wstring, rgb, loword/hiword, csprng_fill, null constants, get_env_var)
-- `system/tray.rs` : 3 tests (NID initialisation, tooltip court, tooltip troncature)
-- `system/autostart.rs` : 2 tests (get_exe_path, is_autostart)
-- `system/process.rs` : 3 tests supplementaires (case-insensitive, deep path, trailing backslash)
-- `ui/manager.rs` : 9 tests (new, toggle check, toggle all, checked indices, confirm/cancel edit, start edit, bounds)
-- `ui/popup.rs` : 7 tests (new, search push/pop, move up/down, scroll, resolve selected, hide clears)
-- `ui/sidebar.rs` : 4 tests (new, move up at zero, move down boundary, move empty)
-- `ui/permanent.rs` : 3 tests (new, move up at zero, move down boundary)
-- `ui/splash.rs` : 3 tests (constants, timer IDs, fade convergence)
-- `ui/renderer.rs` : 3 tests (constants positifs, font sizes negatives, search bar hauteur)
-- `ui/theme.rs` : 8 tests supplementaires (unknown defaults, palette contrast, shared colors, system mode, debug, clone)
+### Nouveaux tests (89 nouveaux tests)
+- `ui/manager.rs` : 35 tests (10 -> 35) -- is_editing, toggle twice/empty, indices desc all/none/empty, checked count all/none/empty, start_edit single line/out of bounds/empty/sets is_editing, confirm no edit/clears editing, cancel resets, scroll clamp, hide clears, destroy null, constantes
+- `ui/popup.rs` : 16 tests (6 -> 16) -- constantes, destroy, hide search, scroll boundaries/max clamp, search push/pop resets selection, move up adjusts scroll
+- `ui/sidebar.rs` : 15 tests (4 -> 15) -- constantes, destroy, toggle null, visible count null, scroll up/down/empty, move up adjusts scroll
+- `ui/permanent.rs` : 15 tests (3 -> 15) -- constantes, class name, destroy, toggle null, visible count null, scroll up/down/empty, move up adjusts scroll
+- `ui/renderer.rs` : 12 tests (3 -> 12) -- fade_step_count normal/zero/one/equals/exceeds, font face, preview max chars, search bar, padding
+- `ui/splash.rs` : 14 tests (3 -> 14) -- dimensions, couleurs, polices, fade duration, layout fits, timer ids unique, bg dark, title bright, font larger
+- `ui/mod.rs` : 12 tests (0 -> 12) -- facade re-exports, validated_visible_count zero/valid/too large, validated_selection valid/empty/out of range, bounds coherence
 
 ### Corrige
-- `autostart.rs` : refactoring complet avec helper `open_reg_key()`, elimination de code duplique
-- `app.rs` : mise a jour de l'appel `toggle_autostart()` pour gerer `BvResult` avec log d'erreur
+- `popup.rs` : code mort supprime dans `paint()` (variables `display_entries` / `display_slice` jamais utilisees)
+- `app.rs` : 3 appels `create_window()` mis a jour pour gerer `BvResult` avec log d'erreur
 
 ---
 
