@@ -1,0 +1,15 @@
+[package]
+name = "buffervault"
+version = "0.1.0"
+edition = "2021"
+authors = ["BufferVault Team"]
+description = "Secure clipboard history manager for Windows"
+
+[dependencies]
+# Aucune dependance externe - tout est implemente en pure Rust + Win32 API
+
+[profile.release]
+opt-level = 3
+lto = true
+strip = true
+panic = "abort"

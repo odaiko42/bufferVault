@@ -1,0 +1,4 @@
+cargo build --release 2>&1 | Out-String
+
+Stop-Process -Name buffervault -ErrorAction SilentlyContinue; Start-Sleep -Milliseconds 500; Start-Process "C:\Users\eforgues\Documents\Projects\system\windows\buffervault\target\release\buffervault.exe"
+

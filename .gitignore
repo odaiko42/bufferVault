@@ -1,0 +1,15 @@
+# Build artifacts
+target/
+*.pdb
+
+# IDE
+.vscode/
+*.swp
+*.swo
+
+# OS
+Thumbs.db
+desktop.ini
+
+# Binaries in released (tracker le .exe pour distribution)
+# released/bin/

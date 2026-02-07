@@ -1,0 +1,4 @@
+// BufferVault - Ressource icone principale
+// ID 1 = icone de l'application (affichee dans la barre de titre et l'explorateur)
+
+1 ICON "resources\\app.ico"
