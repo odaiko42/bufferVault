@@ -4,7 +4,7 @@ Handles encryption and decryption of clipboard data using AES-256
 """
 from cryptography.fernet import Fernet
 from cryptography.hazmat.primitives import hashes
-from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2
+from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.hazmat.backends import default_backend
 import base64
 import os
@@ -49,7 +49,7 @@ class EncryptionManager:
         if isinstance(password, str):
             password = password.encode()
         
-        kdf = PBKDF2(
+        kdf = PBKDF2HMAC(
             algorithm=hashes.SHA256(),
             length=32,
             salt=salt,
