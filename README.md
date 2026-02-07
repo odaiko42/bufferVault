@@ -102,10 +102,11 @@ BufferVault creates a `config.json` file on first run with the following default
 
 ## Security
 
-- All clipboard data is encrypted using **AES-256** encryption via the `cryptography` library
-- Encryption keys are derived using **PBKDF2** with 100,000 iterations
+- All clipboard data is encrypted using **AES-256** encryption via the `cryptography` library (v42.0.4+)
+- Encryption keys are derived using **PBKDF2HMAC** with 100,000 iterations
 - Data is stored in the `clipboard_data` directory with `.vault` extension
 - A unique salt is generated for each installation
+- **Security Updates**: Uses cryptography 42.0.4 to address CVE vulnerabilities (NULL pointer dereference and Bleichenbacher timing oracle)
 
 ### Security Note:
 
