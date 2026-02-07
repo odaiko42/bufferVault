@@ -46,3 +46,4 @@ config.json
 clipboard_data/
 logs/
 *.log
+.vault_salt

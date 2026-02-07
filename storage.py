@@ -96,7 +96,7 @@ class StorageManager:
     def add_entry(self, content, entry_type='text', metadata=None):
         """Add new clipboard entry"""
         # Check if content is the same as the last entry
-        if self.history and len(self.history) > 0:
+        if self.history:
             last_entry = self.history[0]
             if last_entry.content == content:
                 return None  # Don't add duplicate
